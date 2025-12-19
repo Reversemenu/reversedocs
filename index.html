@@ -1,74 +1,98 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>ReverseAPI Docs — API Reference</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ReverseAPI Docs</title>
 
 <link href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism-tomorrow.css" rel="stylesheet"/>
 
 <style>
 :root{
   --bg:#0b1020;
-  --panel:#131e3f;
-  --border:#253a74;
-  --text:#e6ebff;
-  --muted:#a9b7ff;
+  --panel:#111a33;
+  --border:#22346a;
+  --text:#e7ecff;
+  --muted:#aab4ff;
   --accent:#5aa9ff;
   --code:#0e1f49;
-  --copy:#20347a;
-  --sidebar:260px;
+  --radius:10px;
 }
-*{margin:0;padding:0;box-sizing:border-box}
+
+*{box-sizing:border-box;margin:0;padding:0}
+
 body{
-  font-family:Inter,Segoe UI,system-ui,sans-serif;
+  font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif;
   background:var(--bg);
   color:var(--text);
-  font-size:15px;
-  line-height:1.55;
+  line-height:1.6;
 }
 
 /* HEADER */
 .header{
-  position:fixed;top:0;left:0;right:0;
+  position:fixed;
+  top:0;left:0;right:0;
   height:60px;
   background:var(--panel);
   border-bottom:1px solid var(--border);
-  display:flex;align-items:center;
-  padding:0 26px;z-index:10;
+  display:flex;
+  align-items:center;
+  padding:0 16px;
+  z-index:10;
+  gap:12px;
 }
+
+.menu-btn{
+  display:none;
+  font-size:22px;
+  background:none;
+  border:none;
+  color:var(--accent);
+  cursor:pointer;
+}
+
 .header input{
-  width:320px;padding:8px 14px;border-radius:6px;
+  flex:1;
+  max-width:360px;
+  padding:10px 14px;
+  border-radius:8px;
   border:1px solid var(--border);
-  background:var(--bg);color:var(--text);
+  background:var(--bg);
+  color:var(--text);
 }
 
 /* LAYOUT */
-.layout{display:flex;padding-top:60px;height:calc(100vh - 60px)}
+.layout{
+  display:flex;
+  padding-top:60px;
+  min-height:100vh;
+}
 
 /* SIDEBAR */
 .sidebar{
-  width:var(--sidebar);
+  width:260px;
   background:var(--panel);
   border-right:1px solid var(--border);
-  padding:20px 16px;
-  overflow-y:auto;
+  padding:20px;
 }
+
 .sidebar .cat{
   font-size:12px;
   font-weight:800;
   color:var(--accent);
   text-transform:uppercase;
-  margin:18px 0 6px;
+  margin:18px 0 8px;
 }
+
 .sidebar a{
   display:block;
-  padding:9px 12px;
-  border-radius:6px;
-  color:var(--text);
+  padding:10px 12px;
+  border-radius:8px;
   text-decoration:none;
+  color:var(--text);
   font-weight:600;
 }
+
 .sidebar a:hover,
 .sidebar a.active{
   background:var(--border);
@@ -78,55 +102,103 @@ body{
 /* CONTENT */
 .content{
   flex:1;
-  padding:30px 40px;
-  overflow-y:auto;
+  padding:28px;
+  max-width:900px;
 }
-h1{font-size:30px;font-weight:900;margin-bottom:6px}
-.subtitle{color:var(--muted);margin-bottom:30px}
-.section{margin-bottom:52px}
-.section h2{font-size:22px;font-weight:800;margin-bottom:6px}
-.section p{color:var(--muted);margin-bottom:16px}
+
+h1{
+  font-size:28px;
+  font-weight:900;
+  margin-bottom:6px;
+}
+
+.subtitle{
+  color:var(--muted);
+  margin-bottom:32px;
+}
+
+.section{
+  margin-bottom:50px;
+}
+
+.section h2{
+  font-size:22px;
+  font-weight:800;
+  margin-bottom:6px;
+}
+
+.section p{
+  color:var(--muted);
+  margin-bottom:16px;
+}
+
 .label{
-  font-size:12px;font-weight:700;color:var(--accent);
-  text-transform:uppercase;margin-bottom:6px;
+  font-size:12px;
+  font-weight:700;
+  color:var(--accent);
+  text-transform:uppercase;
+  margin-bottom:6px;
 }
+
 pre{
   background:var(--code);
   border:1px solid var(--border);
-  border-radius:8px;
+  border-radius:var(--radius);
   padding:16px;
-  font-family:'Fira Code',monospace;
-  font-size:14px;
+  overflow:auto;
   position:relative;
-  margin-bottom:20px;
+  margin-bottom:18px;
 }
+
 .copy{
-  position:absolute;top:12px;right:12px;
-  background:var(--copy);border:none;color:var(--accent);
-  font-size:12px;font-weight:700;
-  padding:5px 12px;border-radius:6px;
-  cursor:pointer;opacity:.85;
+  position:absolute;
+  top:10px;
+  right:10px;
+  padding:6px 12px;
+  font-size:12px;
+  font-weight:700;
+  border-radius:8px;
+  border:none;
+  background:var(--border);
+  color:var(--accent);
+  cursor:pointer;
 }
-.copy:hover{opacity:1}
+
+/* MOBILE */
+@media (max-width:900px){
+  .menu-btn{display:block}
+  .sidebar{
+    position:fixed;
+    top:60px;
+    left:-260px;
+    height:calc(100vh - 60px);
+    transition:.25s;
+    z-index:20;
+  }
+  .sidebar.open{left:0}
+  .content{padding:22px}
+}
 </style>
 </head>
 <body>
 
+<!-- HEADER -->
 <div class="header">
+  <button class="menu-btn" onclick="toggleMenu()">☰</button>
   <input id="search" placeholder="Search documentation…" />
 </div>
 
 <div class="layout">
 
   <!-- SIDEBAR -->
-  <aside class="sidebar">
+  <aside class="sidebar" id="sidebar">
     <div class="cat">Resource Injection</div>
     <a href="#inject" class="active">InjectResource</a>
 
     <div class="cat">User</div>
     <a href="#username">GetUsername</a>
-    <a href="#vehicleControl">GetVehicleControl</a>
-    <a href="#spoofPed">SpoofPed</a>
+    <a href="#vehicle">GetVehicleControl</a>
+    <a href="#spoof">SpoofPed</a>
   </aside>
 
   <!-- CONTENT -->
@@ -134,109 +206,68 @@ pre{
 
     <h1>ReverseAPI Documentation</h1>
     <div class="subtitle">
-      Clean API reference for injection and user-level utilities.
+      Clean, minimal and responsive API reference.
     </div>
 
-    <!-- Resource Injection -->
+    <!-- Inject -->
     <section id="inject" class="section">
       <h2>InjectResource</h2>
-      <p>Executes Lua code inside a target resource context.</p>
+      <p>Executes Lua code inside a target resource.</p>
 
       <div class="label">Syntax</div>
-      <pre><code class="language-lua">ReverseAPI.InjectResource(resourceName, luaCode [, injectionType]) → void</code>
-        <button class="copy">Copy</button>
-      </pre>
+      <pre><code class="language-lua">ReverseAPI.InjectResource(resourceName, luaCode) → void</code>
+      <button class="copy">Copy</button></pre>
 
       <div class="label">Example</div>
       <pre><code class="language-lua">ReverseAPI.InjectResource(
   "esx_ambulancejob",
   "TriggerEvent('esx_ambulancejob:revive')"
 )</code>
-        <button class="copy">Copy</button>
-      </pre>
+      <button class="copy">Copy</button></pre>
     </section>
 
-    <!-- GetUsername -->
+    <!-- Username -->
     <section id="username" class="section">
       <h2>GetUsername</h2>
       <p>Returns the current user's username.</p>
 
-      <div class="label">Syntax</div>
-      <pre><code class="language-lua">ReverseAPI.GetUsername() → string</code>
-        <button class="copy">Copy</button>
-      </pre>
-
-      <div class="label">Example</div>
       <pre><code class="language-lua">local username = ReverseAPI.GetUsername()
 print("Username:", username)</code>
-        <button class="copy">Copy</button>
-      </pre>
+      <button class="copy">Copy</button></pre>
     </section>
 
-    <!-- GetVehicleControl -->
-    <section id="vehicleControl" class="section">
+    <!-- Vehicle -->
+    <section id="vehicle" class="section">
       <h2>GetVehicleControl</h2>
-      <p>
-        Requests network ownership of a vehicle entity.
-        Must be called before performing local vehicle actions.
-      </p>
+      <p>Requests network ownership of a vehicle entity.</p>
 
-      <div class="label">Syntax</div>
       <pre><code class="language-lua">ReverseAPI.GetVehicleControl(vehicle, maxTries) → boolean</code>
-        <button class="copy">Copy</button>
-      </pre>
-
-      <div class="label">Correct Usage</div>
-      <pre><code class="language-lua">if DoesEntityExist(vehicle) then
-    if ReverseAPI.GetVehicleControl(vehicle, 50) then
-        -- Safe to interact with the vehicle
-    end
-end</code>
-        <button class="copy">Copy</button>
-      </pre>
+      <button class="copy">Copy</button></pre>
 
       <div class="label">Example</div>
-      <pre><code class="language-lua">-- Acquire control of the nearest vehicle and enter it
-
-local ped = PlayerPedId()
+      <pre><code class="language-lua">local ped = PlayerPedId()
 local coords = GetEntityCoords(ped)
 
 local vehicle = GetClosestVehicle(
-    coords.x, coords.y, coords.z,
-    6.0, 0, 71
+  coords.x, coords.y, coords.z,
+  6.0, 0, 71
 )
 
 if vehicle ~= 0 and ReverseAPI.GetVehicleControl(vehicle, 50) then
-    SetVehicleEngineOn(vehicle, true, true, false)
-    TaskEnterVehicle(ped, vehicle, -1, -1, 1.0, 1, 0)
+  TaskEnterVehicle(ped, vehicle, -1, -1, 1.0, 1, 0)
 end</code>
-        <button class="copy">Copy</button>
-      </pre>
+      <button class="copy">Copy</button></pre>
     </section>
 
-    <!-- SpoofPed -->
-    <section id="spoofPed" class="section">
+    <!-- Spoof -->
+    <section id="spoof" class="section">
       <h2>SpoofPed</h2>
-      <p>
-        Temporarily overrides the local player ped model.
-        Useful for testing, animations or context simulation.
-      </p>
+      <p>Temporarily overrides the local player ped model.</p>
 
-      <div class="label">Syntax</div>
-      <pre><code class="language-lua">ReverseAPI.SpoofPed(modelHash) → void</code>
-        <button class="copy">Copy</button>
-      </pre>
-
-      <div class="label">Example</div>
-      <pre><code class="language-lua">-- Temporarily switch ped model
-
-ReverseAPI.SpoofPed(`s_m_m_security_01`)
+      <pre><code class="language-lua">ReverseAPI.SpoofPed(`s_m_m_security_01`)
 Wait(1500)
-
--- Revert to freemode ped
 ReverseAPI.SpoofPed(`mp_m_freemode_01`)</code>
-        <button class="copy">Copy</button>
-      </pre>
+      <button class="copy">Copy</button></pre>
     </section>
 
   </main>
@@ -245,13 +276,17 @@ ReverseAPI.SpoofPed(`mp_m_freemode_01`)</code>
 <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-lua.min.js"></script>
 <script>
-document.querySelectorAll('.copy').forEach(b=>{
-  b.onclick=()=>{
-    navigator.clipboard.writeText(b.previousElementSibling.innerText);
-    b.textContent='Copied';
-    setTimeout(()=>b.textContent='Copy',1200);
-  };
-});
+function toggleMenu(){
+  document.getElementById('sidebar').classList.toggle('open')
+}
+
+document.querySelectorAll('.copy').forEach(btn=>{
+  btn.onclick=()=>{
+    navigator.clipboard.writeText(btn.previousElementSibling.innerText)
+    btn.textContent='Copied'
+    setTimeout(()=>btn.textContent='Copy',1000)
+  }
+})
 </script>
 
 </body>
